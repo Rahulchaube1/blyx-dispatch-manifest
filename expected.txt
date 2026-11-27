@@ -1,0 +1,5 @@
+open_manifest
+accept_scan
+remove_stops
+seal_manifest
+close_route

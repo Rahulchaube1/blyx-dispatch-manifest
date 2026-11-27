@@ -1,0 +1,63 @@
+// Seal one route manifest only after all listed stops have been scanned or explicitly removed.
+use std::cli;
+
+pub fn dispatch_manifest_start() -> vector { [0, 0, 0] }
+
+pub fn dispatch_manifest_step(snapshot: vector, event: str, value: f64) -> vector {
+    if len(snapshot) != 3 { return []; }
+    let phase = at(snapshot, 0);
+    let saved = at(snapshot, 1);
+    let previous = at(snapshot, 2);
+    if !(phase >= 0.0 && phase < 4.0 && phase % 1.0 == 0.0 && previous >= 0.0 && previous < 6.0 && previous % 1.0 == 0.0 && saved >= 0.0 && saved <= 9007199254740991.0 && saved % 1.0 == 0.0) { return []; }
+    if !(value >= 0.0 && value <= 1000000000.0 && value % 1.0 == 0.0) { return [phase, saved, 0]; }
+    // idle
+    if phase == 0.0 {
+        if event == "stops" && value>0.0 {
+            return [1, value, 1]; // open_manifest
+        }
+    }
+    // loading
+    if phase == 1.0 {
+        if event == "scan" && saved>0.0 {
+            return [1, saved-1.0, 2]; // accept_scan
+        }
+        if event == "remove" && value>0.0 && value<=saved {
+            return [1, saved-value, 3]; // remove_stops
+        }
+        if event == "depart" && saved==0.0 {
+            return [2, 0.0, 4]; // seal_manifest
+        }
+    }
+    // driving
+    if phase == 2.0 {
+        if event == "return" {
+            return [3, 0.0, 5]; // close_route
+        }
+    }
+    [phase, saved, 0]
+}
+
+pub fn dispatch_manifest_command(snapshot: vector) -> str {
+    if len(snapshot) != 3 { return "invalid"; }
+    let action = at(snapshot, 2);
+    if action == 0.0 { return "reject"; }
+    if action == 1.0 { return "open_manifest"; }
+    if action == 2.0 { return "accept_scan"; }
+    if action == 3.0 { return "remove_stops"; }
+    if action == 4.0 { return "seal_manifest"; }
+    if action == 5.0 { return "close_route"; }
+    "invalid"
+}
+
+// Stop at the first rejected event. No host effects run during replay.
+pub fn dispatch_manifest_replay(events: arglist, values: vector) -> vector {
+    if args_len(events) != len(values) { return []; }
+    let mut state = dispatch_manifest_start();
+    let mut i = 0;
+    while i < len(values) {
+        state = dispatch_manifest_step(state, args_at(events, i), at(values, i));
+        if at(state, 2) == 0.0 { return []; }
+        i += 1;
+    }
+    state
+}

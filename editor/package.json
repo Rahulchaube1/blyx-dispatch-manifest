@@ -1,0 +1,28 @@
+{
+  "name": "blyx-dispatch-manifest",
+  "displayName": "Dispatch Manifest for Blyx",
+  "publisher": "RahulChaube",
+  "version": "0.1.1",
+  "description": "Seal one route manifest only after all listed stops have been scanned or explicitly removed.",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "icon": "icon.png",
+  "homepage": "https://nest.blyx-lang.space/packages/dispatch_manifest.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rahulchaube1/blyx-dispatch-manifest.git"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "blyx",
+        "path": "./snippets.json"
+      }
+    ]
+  }
+}
