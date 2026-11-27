@@ -2,7 +2,7 @@
   "name": "blyx-dispatch-manifest",
   "displayName": "Dispatch Manifest for Blyx",
   "publisher": "RahulChaube",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Seal one route manifest only after all listed stops have been scanned or explicitly removed.",
   "license": "MIT",
   "engines": {

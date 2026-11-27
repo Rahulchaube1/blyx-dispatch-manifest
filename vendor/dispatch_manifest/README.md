@@ -2,7 +2,9 @@
 
 Seal one route manifest only after all listed stops have been scanned or explicitly removed.
 
-Logistics, utilities and production · framework · 0.1.1
+Logistics, utilities and production · framework · 0.1.2
+
+Framework bird: Northern bald ibis.
 
 ## Drive the workflow
 
@@ -31,10 +33,10 @@ blyxc native-run main.blyx -- stops 3 scan 0 remove 2 depart 0 return 0
 ## Try the published project
 
 ```sh
-nest demo dispatch_manifest@0.1.1
+nest demo dispatch_manifest@0.1.2
 blyxc native-run dispatch_manifest-demo/main.blyx
 ```
 
-Install with `nest add dispatch_manifest@0.1.1` and import `vendor::dispatch_manifest::dispatch_manifest`.
+Install with `nest add dispatch_manifest@0.1.2` and import `vendor::dispatch_manifest::dispatch_manifest`.
 
 Maintained by Rahul Chaube. [Blyx](https://www.blyx-lang.space) · [GitHub](https://github.com/Rahulchaube1) · [LinkedIn](https://www.linkedin.com/in/rahulchaube1) · [Sponsor](https://github.com/sponsors/Rahulchaube1)
